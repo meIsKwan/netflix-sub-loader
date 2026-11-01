@@ -1,0 +1,46 @@
+/* Netflix Sub Loader - shared look of the popup and the settings page. */
+:root {
+  color-scheme: dark;
+  --bg: #131318;
+  --card: #1e1e25;
+  --field: #111116;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #ececf1;
+  --muted: #9b9ba8;
+  --accent: #4b7bff;
+  --accent-hi: #6b93ff;
+  --good: #35c46a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+h1 { margin: 0; font-size: 16px; }
+h2 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+p { margin: 0 0 8px; }
+a { color: #86a6ff; }
+.muted { color: var(--muted); margin: 0; }
+.small { font-size: 12px; margin-top: 10px; }
+.top { display: flex; align-items: center; gap: 12px; padding: 14px 14px 6px; }
+.top img { width: 34px; height: 34px; }
+.card { background: var(--card); border-radius: 12px; padding: 12px; margin-top: 10px; }
+button {
+  font: inherit; color: inherit; background: #2a2a32; border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px; padding: 8px 12px; cursor: pointer;
+}
+button:hover { background: #34343d; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+button.primary:hover { background: var(--accent-hi); }
+button.wide { width: 100%; margin-top: 10px; }
+input {
+  font: inherit; color: var(--text); background: var(--field); border: 1px solid #3a3a44;
+  border-radius: 8px; padding: 8px 10px; min-width: 0;
+}
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 1px; }
+kbd {
+  padding: 0 5px; border: 1px solid #55555f; border-bottom-width: 2px; border-radius: 4px;
+  font-size: 11px; line-height: 1.5; color: #ddd;
+}

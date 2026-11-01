@@ -1,0 +1,77 @@
+{
+  "manifest_version": 3,
+  "name": "Netflix Sub Loader",
+  "version": "1.0",
+  "minimum_chrome_version": "111",
+  "description": "Load your own subtitles on Netflix, sync them automatically and find subtitles on SubSource, SubDL and OpenSubtitles.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.netflix.com/*",
+    "https://api.subsource.net/*",
+    "https://api.subdl.com/*",
+    "https://dl.subdl.com/*",
+    "https://*.opensubtitles.com/*",
+    "https://*.opensubtitles.org/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "Netflix Sub Loader (Alt+Shift+S)",
+    "default_popup": "pages/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "options_ui": {
+    "page": "pages/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Open/close the subtitle panel"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.netflix.com/*"
+      ],
+      "js": [
+        "src/netflix-hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.netflix.com/*"
+      ],
+      "js": [
+        "src/subtitle-parser.js",
+        "src/aligner.js",
+        "src/table-import.js",
+        "src/netflix-tracks.js",
+        "src/navigation.js",
+        "src/providers.js",
+        "src/config.js",
+        "src/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

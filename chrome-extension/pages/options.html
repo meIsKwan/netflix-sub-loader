@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Netflix Sub Loader – Settings</title>
+<link rel="stylesheet" href="pages.css">
+<style>
+  main { max-width: 640px; margin: 0 auto; padding: 16px 20px 40px; }
+  .top { padding: 18px 0 4px; }
+  .site { display: grid; grid-template-columns: 150px 1fr auto auto; gap: 8px; align-items: center; margin-top: 10px; }
+  .site label { font-weight: 600; }
+  .site label small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; }
+  .actions { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+  #saved { color: var(--good); }
+  ul { margin: 0; padding-left: 18px; }
+  li + li { margin-top: 4px; }
+  a.button { display: inline-block; text-decoration: none; color: #fff; background: var(--accent); border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+  a.button:hover { background: var(--accent-hi); }
+  @media (max-width: 560px) { .site { grid-template-columns: 1fr auto auto; } .site label { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <img src="../icons/icon48.png" alt="">
+    <div><h1>Netflix Sub Loader — Settings</h1><p class="muted">External subtitles &amp; auto sync</p></div>
+  </header>
+
+  <section class="card">
+    <h2>Find subtitles online</h2>
+    <p>Each site gives you a <b>free API key</b> once you sign up. One key is enough to search; add more sites for more results.
+      Keys are stored only on this computer and are only sent to their own site.</p>
+    <div id="sites"></div>
+    <div class="actions">
+      <button class="primary" id="save">Save</button>
+      <span id="saved"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Shortcuts while watching</h2>
+    <ul>
+      <li><kbd>A</kbd> / <kbd>D</kbd> (or <kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>→</kbd>) — previous / next line</li>
+      <li><kbd>G</kbd> / <kbd>H</kbd> — subtitles 0.1 s earlier / later, hold <kbd>Shift</kbd> for 1 s</li>
+      <li><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> — open/close the subtitle panel</li>
+    </ul>
+    <button class="wide" id="shortcuts">Change the panel shortcut…</button>
+  </section>
+
+  <section class="card">
+    <h2>Data on this computer</h2>
+    <p>Subtitles you used and their sync results are kept for the last 40 episodes, so they are ready when you come back.</p>
+    <button id="clear">Delete saved subtitles</button> <span id="cleared" class="muted"></span>
+  </section>
+
+  <section class="card" id="support" hidden>
+    <h2>Support</h2>
+    <p>Netflix Sub Loader is free. If it helps you, you can support its development:</p>
+    <a class="button" id="donate" target="_blank" rel="noopener noreferrer">♥ Donate with PayPal</a>
+  </section>
+
+  <p class="muted small">Netflix Sub Loader is an independent project, not affiliated with Netflix, SubSource, SubDL or OpenSubtitles.</p>
+</main>
+<script src="../src/config.js"></script>
+<script src="../src/providers.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

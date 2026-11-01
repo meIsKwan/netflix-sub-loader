@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Netflix Sub Loader</title>
+<link rel="stylesheet" href="pages.css">
+<style>
+  body { width: 330px; }
+  main { padding: 0 14px 14px; }
+  ol { margin: 0; padding-left: 18px; }
+  li + li { margin-top: 6px; }
+  .sites div { display: flex; justify-content: space-between; padding: 3px 0; }
+  .sites .ok { color: var(--good); }
+  .sites .no { color: var(--muted); }
+  .donate { display: block; margin-top: 10px; text-align: center; }
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="../icons/icon48.png" alt="">
+  <div><h1>Netflix Sub Loader</h1><p class="muted">External subtitles &amp; auto sync</p></div>
+</header>
+<main>
+  <section class="card" id="on-netflix" hidden>
+    <button class="primary wide" id="toggle">Open the subtitle panel on this page</button>
+  </section>
+  <section class="card">
+    <ol>
+      <li>Open a title on Netflix.</li>
+      <li>Click the Netflix Sub Loader toolbar icon (or the round button at the top of the video, <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>).</li>
+      <li>Choose a subtitle file or search online — the timing is synced to Netflix's own subtitles automatically.</li>
+    </ol>
+    <button class="primary wide" id="open-netflix">Open Netflix</button>
+  </section>
+  <section class="card">
+    <h2>Find subtitles online</h2>
+    <div class="sites" id="sites"></div>
+    <button class="wide" id="options">API key settings…</button>
+  </section>
+  <p class="muted small">While watching: <kbd>A</kbd>/<kbd>D</kbd> previous/next line · <kbd>G</kbd>/<kbd>H</kbd> subtitles 0.1 s earlier/later</p>
+  <a class="donate small" id="donate" target="_blank" rel="noopener noreferrer" hidden>♥ Support Netflix Sub Loader on PayPal</a>
+</main>
+<script src="../src/config.js"></script>
+<script src="../src/providers.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Netflix Sub Loader – Add your own subtitles to Netflix, synced automatically</title>
+<meta name="description" content="Free, open-source Chrome extension that adds your own SRT, ASS or VTT subtitles to Netflix in any language and syncs them automatically. Find subtitles on SubSource, SubDL and OpenSubtitles.">
+<link rel="canonical" href="https://meiskwan.github.io/netflix-sub-loader/">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon32.png">
+<link rel="apple-touch-icon" href="assets/icon128.png">
+<meta name="theme-color" content="#0b0c13">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Netflix Sub Loader">
+<meta property="og:title" content="Netflix Sub Loader – your own subtitles on Netflix, synced automatically">
+<meta property="og:description" content="Free Chrome extension: load SRT, ASS or VTT subtitles in any language on Netflix, synced to the video automatically, or find them on SubSource, SubDL and OpenSubtitles.">
+<meta property="og:url" content="https://meiskwan.github.io/netflix-sub-loader/">
+<meta property="og:image" content="https://meiskwan.github.io/netflix-sub-loader/assets/marquee-1400x560.jpg">
+<meta property="og:image:width" content="1400">
+<meta property="og:image:height" content="560">
+<meta property="og:image:alt" content="Netflix Sub Loader – your own subtitles on Netflix, synced automatically">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://meiskwan.github.io/netflix-sub-loader/#app",
+      "name": "Netflix Sub Loader",
+      "description": "Free, open-source Chrome extension that adds your own subtitles (SRT, ASS, VTT and more, in any language) to Netflix and syncs them to the video automatically. It can also find subtitles on SubSource, SubDL and OpenSubtitles.",
+      "applicationCategory": "BrowserApplication",
+      "applicationSubCategory": "Chrome extension",
+      "operatingSystem": "Windows, macOS, Linux, ChromeOS",
+      "softwareRequirements": "Google Chrome 111 or later",
+      "softwareVersion": "1.0",
+      "url": "https://meiskwan.github.io/netflix-sub-loader/",
+      "image": "https://meiskwan.github.io/netflix-sub-loader/assets/marquee-1400x560.jpg",
+      "screenshot": [
+        "https://meiskwan.github.io/netflix-sub-loader/assets/screenshot-find.jpg",
+        "https://meiskwan.github.io/netflix-sub-loader/assets/screenshot-sync.jpg",
+        "https://meiskwan.github.io/netflix-sub-loader/assets/screenshot-display.jpg"
+      ],
+      "downloadUrl": "https://github.com/meIsKwan/netflix-sub-loader/archive/refs/heads/main.zip",
+      "license": "https://opensource.org/licenses/MIT",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Load SRT, ASS/SSA, WebVTT, TTML/DFXP, Excel and CSV subtitles on Netflix",
+        "Automatic subtitle sync against Netflix's own subtitle track, including frame-rate and cut differences",
+        "Subtitle search on SubSource, SubDL and OpenSubtitles",
+        "Previous / next subtitle line with A / D",
+        "Netflix-style subtitle display with adjustable size, position, background and color",
+        "Export synced subtitles as SRT"
+      ],
+      "author": { "@type": "Person", "name": "meIsKwan", "url": "https://github.com/meIsKwan" },
+      "sameAs": ["https://github.com/meIsKwan/netflix-sub-loader"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I fix subtitles that are out of sync on Netflix?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Load the subtitle file with Netflix Sub Loader. It uses Netflix's own subtitles as the timing reference and works out the correct offset by itself, so there is no delay to guess. G / H nudge the timing by hand if you want." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I watch Netflix with subtitles in a language Netflix doesn't have?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Load a subtitle file in any language and it is shown over the video. The timing reference can be in another language, for example English." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which subtitle formats are supported?",
+          "acceptedAnswer": { "@type": "Answer", "text": "SRT, WebVTT, ASS/SSA, TTML/DFXP (XML), Excel (.xlsx) and CSV/TSV, plus .zip archives downloaded from subtitle sites. .rar and .7z archives are not supported." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an account to find subtitles?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Loading your own files needs nothing. Searching online needs a free API key from SubSource, SubDL or OpenSubtitles (one is enough), entered once in the extension's settings." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with Language Reactor?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. A Language Reactor Excel export can be used as the timing reference, and the A / D shortcuts don't jump twice when both extensions are installed." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Netflix Sub Loader free? What data does it collect?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is free and open source, with no ads and no tracking. Subtitles, settings and API keys stay on your device. A search only sends the title, season and episode to the subtitle sites you added a key for." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #0b0c13; --bg2: #10121b; --card: #161926; --line: rgba(255, 255, 255, 0.09);
+    --text: #eceef6; --soft: #c6cad9; --muted: #a0a5ba; --accent: #4f7cff; --link: #8fb0ff;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; }
+  a { color: var(--link); }
+  img { max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  .top { position: sticky; top: 0; z-index: 5; background: rgba(11, 12, 19, 0.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 18px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; white-space: nowrap; }
+  .brand img { width: 30px; height: 30px; }
+  .top nav { margin-left: auto; display: flex; gap: 20px; }
+  .top nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
+  .top nav a:hover { color: var(--text); }
+
+  .hero { padding: 72px 0 60px; background: radial-gradient(90% 130% at 0% 0%, rgba(47, 87, 222, 0.55) 0%, rgba(22, 27, 54, 0.55) 45%, rgba(11, 12, 19, 0) 78%); }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; }
+  .kicker { display: inline-block; font-size: 14px; color: #c9d4ff; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 4px 12px; border-radius: 999px; }
+  h1 { font-size: 52px; line-height: 1.08; margin: 16px 0 14px; letter-spacing: -0.02em; }
+  .lead { font-size: 21px; color: #dfe4f7; margin: 0 0 12px; }
+  .more { color: var(--muted); margin: 0 0 26px; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 16px; text-decoration: none; color: var(--text); background: #1b1f2e; border: 1px solid var(--line); }
+  .btn:hover { border-color: rgba(255, 255, 255, 0.25); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.soon { color: var(--muted); cursor: default; }
+  .shot { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5); }
+
+  section { padding: 64px 0; }
+  section.alt { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  h2 { font-size: 34px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .intro { color: var(--muted); margin: 0 0 32px; max-width: 780px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .card h3 { margin: 0 0 8px; font-size: 19px; }
+  .card p, .card li { margin: 0; color: var(--soft); font-size: 16px; }
+  .icon { display: block; font-size: 26px; margin-bottom: 8px; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 36px; }
+  figure { margin: 0; }
+  figcaption { color: var(--muted); font-size: 14.5px; margin-top: 10px; }
+
+  ol.steps { list-style: none; counter-reset: step; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  ol.steps li { counter-increment: step; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; color: var(--soft); }
+  ol.steps li::before { content: counter(step); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; margin-bottom: 12px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card ol { margin: 8px 0 0; padding-left: 22px; }
+  .card ol li { margin-bottom: 6px; }
+  .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 34px; }
+  .faq h3 { font-size: 18.5px; margin: 0 0 6px; }
+  .faq p { margin: 0; color: var(--soft); }
+  kbd { font: 600 13.5px/1 ui-monospace, Consolas, monospace; background: #232838; border: 1px solid #343a4f; border-bottom-width: 2px; border-radius: 6px; padding: 3px 7px; white-space: nowrap; }
+  code { font: 14.5px ui-monospace, Consolas, monospace; background: #1d2130; padding: 2px 6px; border-radius: 6px; }
+  footer { padding: 34px 0 48px; color: var(--muted); font-size: 14.5px; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 10px; }
+
+  @media (max-width: 900px) {
+    .hero .wrap, .gallery, .two, .faq { grid-template-columns: 1fr; }
+    .hero { padding: 44px 0 40px; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 28px; }
+    .top nav a.wide { display: none; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/icon128.png" alt="" width="30" height="30">Netflix Sub Loader</a>
+    <nav>
+      <a class="wide" href="#features">Features</a>
+      <a class="wide" href="#how">How to</a>
+      <a class="wide" href="#faq">FAQ</a>
+      <a href="https://github.com/meIsKwan/netflix-sub-loader">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="kicker">Free, open-source Chrome extension</span>
+        <h1>Netflix Sub Loader</h1>
+        <p class="lead">Add your own subtitles to Netflix — SRT, ASS, VTT and more, in any language — and get them synced to the video automatically.</p>
+        <p class="more">Netflix doesn't let you upload subtitle files. Netflix Sub Loader shows them over the video right in your browser, timed to the dialogue, without you having to edit the file.</p>
+        <div class="buttons">
+          <!-- After Chrome Web Store approval, replace this span with:
+               <a class="btn primary" href="https://chromewebstore.google.com/detail/...">Add to Chrome</a> -->
+          <span class="btn soon" title="Under review">Chrome Web Store · coming soon</span>
+          <a class="btn primary" href="#install">Install from GitHub</a>
+          <a class="btn" href="https://github.com/meIsKwan/netflix-sub-loader">Source code</a>
+        </div>
+      </div>
+      <img class="shot" src="assets/screenshot-find.jpg" width="1280" height="800"
+           alt="Netflix Sub Loader panel on a Netflix video, searching SubSource and SubDL for Vietnamese subtitles of the episode being watched">
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>Everything you need for subtitles on Netflix</h2>
+      <p class="intro">Watch with subtitles in a language Netflix doesn't offer (such as Vietnamese), with a translation you like better, with fan subtitles for anime, or with the subtitles you use to learn a language.</p>
+      <div class="grid">
+        <div class="card"><span class="icon" aria-hidden="true">📄</span><h3>Custom subtitles on Netflix</h3><p>Drag and drop .srt, .ass/.ssa, .vtt, .ttml/.dfxp/.xml, Excel (.xlsx) or .csv/.tsv files.</p></div>
+        <div class="card"><span class="icon" aria-hidden="true">⚡</span><h3>Automatic subtitle sync</h3><p>Your file is compared with Netflix's own subtitle track and the delay is fixed for you — including frame-rate differences (25 fps vs 23.976 fps releases) and versions with scenes added or cut. If the file seems to be for a different episode or version, you get a warning.</p></div>
+        <div class="card"><span class="icon" aria-hidden="true">🔎</span><h3>Find subtitles without leaving Netflix</h3><p>Search SubSource (home of the old Subscene archive), SubDL and OpenSubtitles for the exact show, season and episode you are watching, in Vietnamese, English, Japanese, Korean, Thai, Indonesian, Spanish or French. One click downloads and syncs; .zip season packs are unpacked and the right episode is picked for you.</p></div>
+        <div class="card"><span class="icon" aria-hidden="true">🎚️</span><h3>Fine-tune by hand</h3><p>Move subtitles 0.1 s earlier or later with <kbd>G</kbd> / <kbd>H</kbd> (1 s with <kbd>Shift</kbd>) and compare Netflix's line with yours to check the timing.</p></div>
+        <div class="card"><span class="icon" aria-hidden="true">⏭️</span><h3>Jump between subtitle lines</h3><p><kbd>A</kbd> / <kbd>D</kbd> (or <kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>Shift</kbd>+<kbd>→</kbd>) replays the previous line or skips to the next one — handy for language learning.</p></div>
+        <div class="card"><span class="icon" aria-hidden="true">🎬</span><h3>Netflix-style look</h3><p>Netflix Sans font or a black outline, with adjustable size, position, background and color. Works in fullscreen. Subtitles and sync are remembered for the last 40 episodes, and you can export the synced subtitles as an .srt file.</p></div>
+      </div>
+      <div class="gallery">
+        <figure>
+          <img class="shot" src="assets/screenshot-sync.jpg" width="1280" height="800" loading="lazy"
+               alt="Sync tab of Netflix Sub Loader showing an offset of +2.354 seconds and a frame-rate change from 25 to 23.976 fps found automatically">
+          <figcaption>The Sync tab: offset and frame rate found automatically, with a quick check against Netflix's own line.</figcaption>
+        </figure>
+        <figure>
+          <img class="shot" src="assets/screenshot-display.jpg" width="1280" height="800" loading="lazy"
+               alt="Display tab of Netflix Sub Loader with font style, size, position, background and color settings">
+          <figcaption>The Display tab: Netflix-style font, size, position, background and color.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="alt">
+    <div class="wrap">
+      <h2>How to add subtitles to Netflix</h2>
+      <p class="intro">It takes a few seconds once the extension is installed.</p>
+      <ol class="steps">
+        <li>Open a movie or episode on Netflix.</li>
+        <li>Click the Netflix Sub Loader icon in the Chrome toolbar (or press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>).</li>
+        <li>Drop in a subtitle file, or search online and click “Use”.</li>
+        <li>The subtitles appear on the video, already in sync. Change their look in the Display tab.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>Install</h2>
+      <p class="intro">Requires Google Chrome 111 or later.</p>
+      <div class="two">
+        <div class="card">
+          <h3>Chrome Web Store</h3>
+          <p>Netflix Sub Loader is being reviewed for the Chrome Web Store. The install link will appear here once it is approved.</p>
+        </div>
+        <div class="card">
+          <h3>From GitHub (developer mode)</h3>
+          <ol>
+            <li><a href="https://github.com/meIsKwan/netflix-sub-loader/archive/refs/heads/main.zip">Download the source code</a> and unzip it.</li>
+            <li>Open <code>chrome://extensions</code> and turn on <b>Developer mode</b>.</li>
+            <li>Click <b>Load unpacked</b> and choose the <code>chrome-extension</code> folder.</li>
+            <li>Pin the Netflix Sub Loader icon in the toolbar, then open Netflix.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="alt">
+    <div class="wrap">
+      <h2>Frequently asked questions</h2>
+      <p class="intro">Short answers to what people ask most.</p>
+      <div class="faq">
+        <div><h3>How do I fix subtitles that are out of sync on Netflix?</h3><p>Load the subtitle file with Netflix Sub Loader. It uses Netflix's own subtitles as the timing reference and works out the correct offset by itself, so there is no delay to guess. <kbd>G</kbd> / <kbd>H</kbd> nudge the timing by hand if you want.</p></div>
+        <div><h3>Can I watch Netflix with subtitles in a language Netflix doesn't have?</h3><p>Yes. Load a subtitle file in any language and it is shown over the video. The timing reference can be in another language, for example English.</p></div>
+        <div><h3>Which subtitle formats are supported?</h3><p>SRT, WebVTT, ASS/SSA, TTML/DFXP (XML), Excel (.xlsx) and CSV/TSV, plus .zip archives downloaded from subtitle sites. .rar and .7z archives are not supported.</p></div>
+        <div><h3>Do I need an account to find subtitles?</h3><p>Loading your own files needs nothing. Searching online needs a free API key from SubSource, SubDL or OpenSubtitles (one is enough), entered once in the extension's settings.</p></div>
+        <div><h3>Does it work with Language Reactor?</h3><p>Yes. A Language Reactor Excel export can be used as the timing reference, and the <kbd>A</kbd> / <kbd>D</kbd> shortcuts don't jump twice when both extensions are installed.</p></div>
+        <div><h3>Is Netflix Sub Loader free? What data does it collect?</h3><p>It is free and open source, with no ads and no tracking. Subtitles, settings and API keys stay on your device. A search only sends the title, season and episode to the subtitle sites you added a key for. Details are in the <a href="privacy-policy.html">privacy policy</a>.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tieng-viet" lang="vi">
+    <div class="wrap">
+      <h2>Phụ đề tiếng Việt cho Netflix</h2>
+      <p class="intro" style="margin-bottom:0">Netflix Sub Loader giúp bạn xem Netflix với phụ đề tiếng Việt hoặc bất kỳ ngôn ngữ nào: chỉ cần thả file .srt, .ass hoặc .vtt vào, phụ đề sẽ hiện trên video và được tự động căn khớp thời gian — không còn cảnh sub bị lệch. Tìm phụ đề tiếng Việt trên SubSource, SubDL và OpenSubtitles ngay trong lúc xem Netflix. Miễn phí, mã nguồn mở, không quảng cáo, không thu thập dữ liệu.</p>
+    </div>
+  </section>
+
+  <section id="support" class="alt">
+    <div class="wrap two">
+      <div class="card">
+        <h3>Support the project</h3>
+        <p>Netflix Sub Loader is free and open source. If it helps you, you can support its development.</p>
+        <p style="margin-top:14px"><a class="btn primary" href="https://www.paypal.com/paypalme/meiskwan" rel="noopener">♥ Donate with PayPal</a></p>
+      </div>
+      <div class="card">
+        <h3>Help and feedback</h3>
+        <p>Found a bug or have an idea? <a href="https://github.com/meIsKwan/netflix-sub-loader/issues">Open an issue on GitHub</a>. The code is on <a href="https://github.com/meIsKwan/netflix-sub-loader">GitHub</a> under the MIT license.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="privacy-policy.html">Privacy policy</a>
+      <a href="https://github.com/meIsKwan/netflix-sub-loader">Source code</a>
+      <a href="https://github.com/meIsKwan/netflix-sub-loader/issues">Support</a>
+      <a href="https://github.com/meIsKwan/netflix-sub-loader/blob/main/LICENSE">MIT License</a>
+    </div>
+    <p>Netflix Sub Loader is an independent project and is not affiliated with, endorsed by or sponsored by Netflix, SubSource, SubDL, OpenSubtitles or Language Reactor.</p>
+  </div>
+</footer>
+</body>
+</html>
